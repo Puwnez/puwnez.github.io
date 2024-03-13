@@ -292,24 +292,35 @@
         }
       });
 
-      (function timeAgo(selector) {
 
-      var dt1 = new Date("2024-02-02 00:00");
-      var dt2 = new Date();
+      function dateToHowManyAgo(stringDate){
+        var currDate = new Date();
+        var diffMs=currDate.getTime() - new Date(stringDate).getTime();
+        var sec=diffMs/1000;
+        if(sec<60)
+            return 'Just now';
+        var min=sec/60;
+        if(min<60)
+            return parseInt(min)+' minute'+(parseInt(min)>1?'s':'')+' ago';
+        var h=min/60;
+        if(h<24)
+            return parseInt(h)+' hour'+(parseInt(h)>1?'s':'')+' ago';
+        var d=h/24;
+        if(d<30)
+            return parseInt(d)+' day'+(parseInt(d)>1?'s':'')+' ago';
+        var m=d/30;
+        if(m<12)
+            return parseInt(m)+' month'+(parseInt(m)>1?'s':'')+' ago';
+        var y=m/12;
+        return parseInt(y)+' year'+(parseInt(y)>1?'s':'')+' ago';
+      }
+      const time1 = dateToHowManyAgo('2024-3-13 05:00:30');
+      const time2 = dateToHowManyAgo('2023-7-10 18:25:00');
+      const time3 = dateToHowManyAgo('2024-1-13 00:16:00');
+      document.getElementById("time1").innerHTML = time1
+      document.getElementById("time2").innerHTML = time2
+      document.getElementById("time3").innerHTML = time3
 
-      var diff = (dt2.getTime() - dt1.getTime());
-      var hours = Math.floor(diff / (1000 * 60 * 60));
-      diff -= hours * (1000 * 60 * 60);
-      var mins = Math.floor(diff / (1000 * 60));
-      diff -= mins * (1000 * 60);
-
-      document.getElementById("time1").innerHTML = mins + 'min ago';
-      document.getElementById("time2").innerHTML = mins + 'min ago';
-      document.getElementById("time3").innerHTML = mins + 'min ago';
-
-      setTimeout(timeAgo, 60000);
-
-      })();
 
       let didScroll = false;
       let paralaxTitles = document.querySelectorAll('.paralax-title');
