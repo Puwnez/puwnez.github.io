@@ -278,12 +278,14 @@
 
       themeSwitch.addEventListener("change", (event) => {
         if (event.target.checked) {
+          navigator.vibrate(200);
           htmlDocument.setAttribute("data-bs-theme", "dark")
           leftShape[0].classList.remove("bg-secondary")
           leftShape[0].classList.add("bg-black")
           rightshape[0].classList.remove("bg-secondary")
           rightshape[0].classList.add("bg-black")
         } else {
+          navigator.vibrate(200);
           htmlDocument.setAttribute("data-bs-theme", "light")
           leftShape[0].classList.remove("bg-black")
           leftShape[0].classList.add("bg-secondary")
